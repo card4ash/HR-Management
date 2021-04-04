@@ -1,0 +1,2921 @@
+﻿
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderContent{
+    <link href="~/Assets/lib/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-buttons.css" rel="stylesheet" />
+    <link href="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-thumbs.css" rel="stylesheet" />
+    <style>
+        #layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: .8;
+            z-index: 1000003;
+            display: none;
+            overflow: hidden;
+        }
+
+        #layeredu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: .8;
+            z-index: 1000003;
+            display: none;
+            overflow: hidden;
+        }
+
+        #popup, #popup4more, #popup4edu, #popup4eduDelete, #popup4empinfo, #popup4PresentAddress, #popup4PermanetAddress, #popup4training, #popup4certification, #popup4working, #popup4trainingDelete, #popup4workingDelete, #popup4certificationDelete {
+            width: 80%;
+            height: 92%;
+            position: relative;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000013;
+            display: none;
+        }
+
+            #popup4PresentAddress .content {
+                height: 400px;
+                position: relative;
+            }
+
+            #popup4PermanetAddress .content {
+                height: 400px;
+                position: relative;
+            }
+
+            #popup4empinfo .content {
+                height: 400px;
+                position: relative;
+            }
+
+            #popup .content {
+                height: 400px;
+                position: relative;
+            }
+
+            #popup4more .content {
+                height: 400px;
+                position: relative;
+            }
+
+            #popup4edu .content {
+                height: 500px;
+                width: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                position: relative;
+            }
+
+            #popup4training .content {
+                height: 500px;
+                width: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                position: relative;
+            }
+
+            #popup4certification .content {
+                height: 500px;
+                width: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                position: relative;
+            }
+
+            #popup4certificationDelete .content {
+                height: 200px;
+                position: relative;
+            }
+
+            #popup4working .content {
+                height: 500px;
+                width: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                position: relative;
+            }
+
+            #popup4eduDelete .content {
+                height: 200px;
+                position: relative;
+            }
+
+            #popup4trainingDelete .content {
+                height: 200px;
+                position: relative;
+            }
+
+            #popup4workingDelete .content {
+                height: 200px;
+                position: relative;
+            }
+    </style>
+}
+
+
+<div id="layer"></div>
+<div class="row" id="popup">
+    <form id="personal-conact-update" action="/Employee/updateContactInfo">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose" href="#"><i class="fa  fa-times"></i></a></span><h3>Personal contact info</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtName" class="col-sm-3 control-label">Name</label>
+                            <div class="col-sm-7">
+                                <input type="hidden" id="employeeid" name="employeeid" value="@ViewBag.Employee.EmployeeId" />
+                                <input id="txtName" name="txtName" type="text" placeholder="Name" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtFatherName" class="col-sm-3 control-label">Father Name</label>
+                            <div class="col-sm-7">
+                                <input id="txtFatherName" name="txtFatherName" type="text" placeholder="Father Name" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtMotherName" class="col-sm-3 control-label">Mother Name</label>
+                            <div class="col-sm-7">
+                                <input id="txtMotherName" name="txtMotherName" type="text" placeholder="Mother Name" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-7">
+                                <input id="txtEmail" name="txtEmail" type="text" placeholder="Email" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtContactNo" class="col-sm-3 control-label">Contact No</label>
+                            <div class="col-sm-7">
+                                <input id="txtContactNo" name="txtContactNo" type="text" placeholder="Conact No" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtSecondContact" class="col-sm-3 control-label">Second Contact No</label>
+                            <div class="col-sm-7">
+                                <input id="txtSecondContact" name="txtSecondContact" type="text" placeholder="Second Contact No" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:right;top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnContactCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4more">
+    <form id="personal-more-update" action="/Employee/updateMoreInfo">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4more" href="#"><i class="fa  fa-times"></i></a></span><h3>Gender, Birthday and More info</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtGender" class="col-sm-3 control-label">Gender</label>
+                            <div class="col-sm-7">
+                                <input type="hidden" id="employeeid4more" name="employeeid4more" value="@ViewBag.Employee.EmployeeId" />
+                                <select class="genderid" id="genderid" name="genderid" style="width:100%;">
+                                    @foreach (var gender in ViewBag.Genders)
+                                    {
+                                        if (ViewBag.Employee.Person.GenderId == gender.ID)
+                                        {
+                                            <option selected="selected" value="@gender.ID">@gender.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@gender.ID">@gender.Name</option>
+                                        }
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtBirthday" class="col-sm-3 control-label">Birthday</label>
+                            <div class="col-sm-7">
+                                <input id="txtBirthday" name="txtBirthday" type="text" placeholder="dd-MM-yyyy" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <select class="idtypeid col-sm-3 control-label" id="idtypeid" name="idtypeid">
+                                @foreach (var idCardType in ViewBag.IDCardTypes)
+                                {
+                                    if (ViewBag.Employee.Person.IDCardTypeId == idCardType.ID)
+                                    {
+                                        <option selected="selected" value="@idCardType.ID">@idCardType.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@idCardType.ID">@idCardType.Name</option>
+                                    }
+                                }
+                            </select>
+                            <div class="col-sm-7">
+                                <input id="txtIDCardNo" name="txtIDCardNo" type="text" placeholder="ID Card No" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="maritalid" class="col-sm-3 control-label">Marital Status</label>
+                            <div class="col-sm-7">
+                                <select class="maritalid" id="maritalid" name="maritalid" style="width:100%;">
+                                    @foreach (var maritalStatus in ViewBag.MaritalStatuses)
+                                    {
+                                        if (ViewBag.Employee.Person.MaritalStatusId == maritalStatus.ID)
+                                        {
+                                            <option selected="selected" value="@maritalStatus.ID">@maritalStatus.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@maritalStatus.ID">@maritalStatus.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="religionid" class="col-sm-3 control-label">Religion</label>
+                            <div class="col-sm-7">
+                                <select class="religionid" id="religionid" name="religionid" style="width:100%;">
+                                    @foreach (var religion in ViewBag.Religions)
+                                    {
+                                        if (ViewBag.Employee.Person.ReligionId == religion.ID)
+                                        {
+                                            <option selected="selected" value="@religion.ID">@religion.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@religion.ID">@religion.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtNationality" class="col-sm-3 control-label">Nationality</label>
+                            <div class="col-sm-7">
+                                <input id="txtNationality" name="txtNationality" type="text" placeholder="Nationality" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:right; top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnMoreCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4empinfo">
+    <form id="employee-info-update" action="/Employee/updateEmployeeInfo">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4empinfo" href="#"><i class="fa  fa-times"></i></a></span><h3>Employee Information</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtEmpCode" class="col-sm-3 control-label">Employee Code</label>
+                            <div class="col-sm-7">
+                                <input id="txtEmpCode" value="@ViewBag.Employee.EmployeeCode" name="txtEmpCode" type="text" placeholder="Employee Code" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtGender" class="col-sm-3 control-label">Department</label>
+                            <div class="col-sm-7">
+                                <input type="hidden" id="employeeid4empinfo" name="employeeid4empinfo" value="@ViewBag.Employee.EmployeeId" />
+                                <select class="pdepartmentid form-control" id="pdepartmentid" name="pdepartmentid" style="width:100%;">
+                                    @foreach (var department in ViewBag.Departments)
+                                    {
+                                        if (ViewBag.Employee.DepartmentId == department.ID)
+                                        {
+                                            <option selected="selected" value="@department.ID">@department.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@department.ID">@department.Name</option>
+                                        }
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtBirthday" class="col-sm-3 control-label">Designation</label>
+                            <div class="col-sm-7">
+                                <select class="pdesignationid form-control" id="pdesignationid" name="pdesignationid" style="width:100%;">
+                                    @foreach (var desig in ViewBag.Designations)
+                                    {
+                                        if (ViewBag.Employee.DesignationId == desig.ID)
+                                        {
+                                            <option selected="selected" value="@desig.ID">@desig.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@desig.ID">@desig.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtGender" class="col-sm-3 control-label">Boss Department</label>
+                            <div class="col-sm-7">
+                                <select class="bossdepartmentid form-control" id="bossdepartmentid" name="bossdepartmentid" style="width:100%;">
+                                    @if (ViewBag.Employee.Boss != null)
+                                    {
+                                        foreach (var department in ViewBag.Departments)
+                                        {
+                                            if (ViewBag.Employee.Boss.DepartmentId == department.ID)
+                                            {
+                                                <option selected="selected" value="@department.ID">@department.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@department.ID">@department.Name</option>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var department in ViewBag.Departments)
+                                        {
+                                            <option value="@department.ID">@department.Name</option>
+                                        }
+                                    }
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="religionid" class="col-sm-3 control-label">Boss</label>
+                            <div class="col-sm-7">
+                                <select class="bossid form-control" id="bossid" name="bossid" style="width:100%;">
+                                    @if (ViewBag.Employee.Boss != null)
+                                    {
+                                        foreach (var emp in ViewBag.Bosses)
+                                        {
+                                            if (ViewBag.Employee.Boss.EmployeeId == emp.ID)
+                                            {
+                                                <option selected="selected" value="@emp.ID">@emp.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@emp.ID">@emp.Name</option>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="0">Select Boss</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="text-align:right; top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnEmpInfoCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4PermanetAddress">
+    <form id="permanent-address-update" action="/Employee/updateEmployeePermanentAddress">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4permanentAddress" href="#"><i class="fa  fa-times"></i></a></span><h3>Permanent Address</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtEmpCode" class="col-sm-3 control-label">Permanent Address</label>
+                            <div class="col-sm-7">
+                                <input id="txtPermanentAddress" value="@ViewBag.Employee.Person.PermanentAddress" name="txtPermanentAddress" type="text" placeholder="Address Line" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtGender" class="col-sm-3 control-label">District</label>
+                            <div class="col-sm-7">
+                                <input type="hidden" id="employeeid4permanentAddress" name="employeeid4permanentAddress" value="@ViewBag.Employee.EmployeeId" />
+                                <select class="parmanentDistid form-control" id="parmanentDistid" name="parmanentDistid" style="width:100%;">
+                                    @foreach (var dist in ViewBag.Districts)
+                                    {
+                                        if (ViewBag.Employee.Person.DistrictId == dist.ID)
+                                        {
+                                            <option selected="selected" value="@dist.ID">@dist.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@dist.ID">@dist.Name</option>
+                                        }
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtBirthday" class="col-sm-3 control-label">Thana</label>
+                            <div class="col-sm-7">
+                                <select class="permanentThanaid form-control" id="permanentThanaid" name="permanentThanaid" style="width:100%;">
+                                    @if (ViewBag.Employee.Person.DistrictId != null)
+                                    {
+                                        foreach (var thana in ViewBag.Thanas)
+                                        {
+                                            if (ViewBag.Employee.DesignationId == thana.ID)
+                                            {
+                                                <option selected="selected" value="@thana.ID">@thana.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@thana.ID">@thana.Name</option>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="0">Select Thana</option>
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:right; top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnPermanentCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4PresentAddress">
+    <form id="present-address-update" action="/Employee/updateEmployeePresentAddress">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4presentaddress" href="#"><i class="fa  fa-times"></i></a></span><h3>Present Address</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtEmpCode" class="col-sm-3 control-label">Present Address</label>
+                            <div class="col-sm-7">
+                                <input id="txtPresentAddress" value="@ViewBag.Employee.Person.PresentAddress" name="txtPresentAddress" type="text" placeholder="Present Address Line" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtGender" class="col-sm-3 control-label">Present District</label>
+                            <div class="col-sm-7">
+                                <input type="hidden" id="employeeid4presentAddress" name="employeeid4presentAddress" value="@ViewBag.Employee.EmployeeId" />
+                                <select class="presentdistid form-control" id="presentdistid" name="presentdistid" style="width:100%;">
+                                    @foreach (var dist in ViewBag.Districts)
+                                    {
+                                        if (ViewBag.Employee.Person.PresentDistrictId == dist.ID)
+                                        {
+                                            <option selected="selected" value="@dist.ID">@dist.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@dist.ID">@dist.Name</option>
+                                        }
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtBirthday" class="col-sm-3 control-label">Present Thana</label>
+                            <div class="col-sm-7">
+                                <select class="presentthanaid form-control" id="presentthanaid" name="presentthanaid" style="width:100%;">
+                                    @if (ViewBag.Employee.Person.PresentDistrictId != null)
+                                    {
+                                        foreach (var thana1 in ViewBag.PThanas)
+                                        {
+                                            if (ViewBag.Employee.Person.PresentThanaId == thana1.ID)
+                                            {
+                                                <option selected="selected" value="@thana1.ID">@thana1.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@thana1.ID">@thana1.Name</option>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="0">Select Thana</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:right; top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnPresentCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4edu">
+    <form id="personal-edu-update" action="/Employee/updateEducationInfo">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4edu" href="#"><i class="fa  fa-times"></i></a></span><h3>Education info</h3></div>
+                <div class="content">
+                    <input id="employeeid4edu" name="employeeid4edu" type="hidden" value="@ViewBag.Employee.EmployeeId" /><input value="0" name="educationId" type="hidden" id="educationId" />
+                    <!-- #region name -->
+                    <!-- #endregion -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="edulblid" class="col-sm-3 control-label">Level of Education</label>
+                            <div class="col-sm-7">
+                                <select class="edulblid" id="edulblid" name="edulblid" style="width:100%;">
+                                    @foreach (var edulbl in ViewBag.EducationLebels)
+                                    {
+                                        <option value="@edulbl.ID">@edulbl.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtExamTitle" class="col-sm-3 control-label">Exam Title</label>
+                            <div class="col-sm-7">
+                                <input id="txtExamTitle" value="" name="txtExamTitle" type="text" placeholder="Exam Title" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtGroup" class="col-sm-3 control-label">Concentration/ Major/Group</label>
+                            <div class="col-sm-7">
+                                <input id="txtGroup" value="" name="txtGroup" type="text" placeholder="group" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtInstitute" class="col-sm-3 control-label">Institute Name</label>
+                            <div class="col-sm-7">
+                                <input id="txtInstitute" value="" name="txtInstitute" type="text" placeholder="Institute Name" class="form-control" />
+                            </div>
+                            <label for="txtBirthday" class="col-sm-3 control-label"></label>
+                            <div class="col-sm-7">
+                                <span style="font-size:10px;">Is specified institute is a foreign institute?</span>
+
+                            </div>
+                            <label for="txtBirthday" class="col-sm-3 control-label"></label>
+                            <div class="col-sm-7">
+                                <input id="chkisForign" name="chkisForign" type="checkbox" value="false" /><input name="chkisForign" value="false" type="hidden"><span>Yes</span><span style="font-size:10px;"> [If no, then leave this option blank]</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtBirthday" class="col-sm-3 control-label">Result</label>
+                            <div class="col-sm-7">
+                                <select class="resultid form-control" id="resultid" name="resultid" style="width:100%;">
+                                    <option>Select</option>
+                                    @foreach (var result in ViewBag.Results)
+                                    {
+                                        <option value="@result.ID">@result.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <label for="txtBirthday" class="col-sm-3 control-label"></label>
+                            <div class="col-sm-7" id="divMentionAsk" style="display:none;">
+                                <input id="isMentionmarks" value="false" name="isMentionmarks" type="checkbox" /><span>Do not want to mention Marks/CGPA.</span>
+                                <input name="isMentionmarks" value="false" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="divMarks" style="display:none;">
+                        <div class="form-group">
+                            <label for="txtMarks" class="col-sm-3 control-label">Marks</label>
+                            <div class="col-sm-7">
+                                <input id="txtMarks" value="" name="txtMarks" type="text" placeholder="marks" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="divCGPA" style="display:none;">
+                        <div class="form-group">
+                            <label for="txtCGPA" class="col-sm-3 control-label">CGPA</label>
+                            <div class="col-sm-2">
+                                <input id="txtCGPA" value="" name="txtCGPA" type="text" placeholder="CGPA" class="form-control" />
+                            </div>
+                            <label for="txtScale" class="col-sm-2 control-label">Scale</label>
+                            <div class="col-sm-2">
+                                <input id="txtScale" value="" name="txtScale" type="text" placeholder="Scale" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="divYearOfPassing">
+                        <div class="form-group">
+                            <label for="txtYear" class="col-sm-3 control-label" id="lblYearOfPass">Year Of Passing</label>
+                            <div class="col-sm-7">
+                                <input id="txtYear" value="" name="txtYear" type="text" placeholder="Year Of Passing" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtDuration" class="col-sm-3 control-label">Duration</label>
+                            <div class="col-sm-7">
+                                <input id="txtDuration" value="" name="txtDuration" type="text" placeholder="Duration" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtAchievement" class="col-sm-3 control-label">Acheivements</label>
+                            <div class="col-sm-7">
+                                <input id="txtAchievement" value="" name="txtAchievement" type="text" placeholder="Achievements" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" style="text-align:right; top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnEduCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4eduDelete">
+    <form id="personal-education-delete" action="/Employee/EducationInfoDelete">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4eduDelete" href="#"><i class="fa  fa-times"></i></a></span><h3> <span id="educationlbldelete"></span> information Delete?</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="empEducationIdDelete" class="col-sm-12 control-label">Are You Sure To delete <span id="educationlbldelete2"></span> Information?</label>
+                            <input type="hidden" id="empEducationIdDelete" name="empEducationIdDelete" value="0" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" style="text-align:right;top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnEduDeleteCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="row" id="popup4training">
+    <form id="personal-training-update" action="/Employee/updateTrainingInfo">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4training" href="#"><i class="fa  fa-times"></i></a></span><h3>Training info</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainingTitle" class="col-sm-3 control-label">Training Title</label>
+                            <div class="col-sm-7">
+                                <input type="hidden" id="employeeid4training" name="employeeid4training" value="@ViewBag.Employee.EmployeeId" />
+                                <input type="hidden" id="trainingid" name="trainingid" value="0" />
+                                <input id="txtTrainingTitle" name="txtTrainingTitle" type="text" placeholder="Training Title" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTopic" class="col-sm-3 control-label">Topic Covered</label>
+                            <div class="col-sm-7">
+                                <input id="txtTopic" name="txtTopic" type="text" placeholder="Topic Covered" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainInstitute" class="col-sm-3 control-label">Institute</label>
+                            <div class="col-sm-7">
+                                <input id="txtTrainInstitute" name="txtTrainInstitute" type="text" placeholder="Institute" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainCountry" class="col-sm-3 control-label">Country</label>
+                            <div class="col-sm-7">
+                                <input id="txtTrainCountry" name="txtTrainCountry" type="text" placeholder="Country" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainLocation" class="col-sm-3 control-label">Location</label>
+                            <div class="col-sm-7">
+                                <input id="txtTrainLocation" name="txtTrainLocation" type="text" placeholder="Location" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainYear" class="col-sm-3 control-label">Training Year</label>
+                            <div class="col-sm-7">
+                                <input id="txtTrainYear" name="txtTrainYear" type="text" placeholder="Year" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainDuration" class="col-sm-3 control-label">Duration</label>
+                            <div class="col-sm-7">
+                                <input id="txtTrainDuration" name="txtTrainDuration" type="text" placeholder="Duration" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:right;top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnTrainingCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4trainingDelete">
+    <form id="personal-training-delete" action="/Employee/TrainingInfoDelete">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4trainingDelete" href="#"><i class="fa  fa-times"></i></a></span><h3> <span id="traininglbldelete"></span> information Delete?</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="empTrainingIdDelete" class="col-sm-12 control-label">Are You Sure To delete <span id="traininglbldelete2"></span> Information?</label>
+                            <input type="hidden" id="empTrainingIdDelete" name="empTrainingIdDelete" value="0" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" style="text-align:right;top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnTrainingDeleteCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4certification">
+    <form id="personal-certification-update" action="/Employee/updateCertificationInfo">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4certification" href="#"><i class="fa  fa-times"></i></a></span><h3>Professional Qualification info</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtCertificationName" class="col-sm-3 control-label">Certification</label>
+                            <div class="col-sm-7">
+                                <input type="hidden" id="employeeid4certification" name="employeeid4certification" value="@ViewBag.Employee.EmployeeId" />
+                                <input type="hidden" id="certificationid" name="certificationid" value="0" />
+                                <input id="txtCertificationName" name="txtCertificationName" type="text" placeholder="Certification" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtCertificationInstitute" class="col-sm-3 control-label">Institute</label>
+                            <div class="col-sm-7">
+                                <input id="txtCertificationInstitute" name="txtCertificationInstitute" type="text" placeholder="Institute" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtCertificationLocation" class="col-sm-3 control-label">Location</label>
+                            <div class="col-sm-7">
+                                <input id="txtCertificationLocation" name="txtCertificationLocation" type="text" placeholder="Location" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainYear" class="col-sm-3 control-label">From Date</label>
+                            <div class="col-sm-7">
+                                <input id="txtCertificationFrom" name="txtCertificationFrom" type="text" placeholder="dd-mm-yyyy" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtCertificationTo" class="col-sm-3 control-label">To Date</label>
+                            <div class="col-sm-7">
+                                <input id="txtCertificationTo" name="txtCertificationTo" type="text" placeholder="dd-mm-yyyy" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:right;top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnCertificationCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4certificationDelete">
+    <form id="personal-certification-delete" action="/Employee/CertificationInfoDelete">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4certificationDelete" href="#"><i class="fa  fa-times"></i></a></span><h3> <span id="certificationlbldelete"></span> information Delete?</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="empCertificationIdDelete" class="col-sm-12 control-label">Are You Sure To delete <span id="certificationlbldelete2"></span> Information?</label>
+                            <input type="hidden" id="empCertificationIdDelete" name="empCertificationIdDelete" value="0" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" style="text-align:right;top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnCertificationDeleteCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4working">
+    <form id="personal-working-update" action="/Employee/updateWorkInfo">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4working" href="#"><i class="fa  fa-times"></i></a></span><h3>Employment History</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainingTitle" class="col-sm-3 control-label">Company Name</label>
+                            <div class="col-sm-7">
+                                <input type="hidden" id="employeeid4working" name="employeeid4working" value="@ViewBag.Employee.EmployeeId" />
+                                <input type="hidden" id="workingid" name="workingid" value="0" />
+                                <input id="txtWorkCompany" name="txtWorkCompany" type="text" placeholder="Company Name" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtCompanyBusiness" class="col-sm-3 control-label">Company Business</label>
+                            <div class="col-sm-7">
+                                <input id="txtCompanyBusiness" name="txtCompanyBusiness" type="text" placeholder="Company Business" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtCompanyLocation" class="col-sm-3 control-label">Company Location</label>
+                            <div class="col-sm-7">
+                                <input id="txtCompanyLocation" name="txtCompanyLocation" type="text" placeholder="Company Location" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtPositionHeld" class="col-sm-3 control-label">Position Held</label>
+                            <div class="col-sm-7">
+                                <input id="txtPositionHeld" name="txtPositionHeld" type="text" placeholder="Position Held" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtCompanyDept" class="col-sm-3 control-label">Department</label>
+                            <div class="col-sm-7">
+                                <input id="txtCompanyDept" name="txtCompanyDept" type="text" placeholder="Department" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtTrainYear" class="col-sm-3 control-label">Responsibilities</label>
+                            <div class="col-sm-7">
+                                <textarea id="txtComResponsibilities" name="txtComResponsibilities" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtWorkFrom" class="col-sm-3 control-label">From Date</label>
+                            <div class="col-sm-7">
+                                <input id="txtWorkFrom" name="txtWorkFrom" type="text" placeholder="dd-mm-yyyy" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtWorkTo" class="col-sm-3 control-label">To Date</label>
+                            <div class="col-sm-7">
+                                <input id="txtWorkTo" name="txtWorkTo" type="text" placeholder="dd-mm-yyyy" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:right;top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnWorkCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" id="popup4workingDelete">
+    <form id="personal-working-delete" action="/Employee/WorkingInfoDelete">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="boxclose4workingDelete" href="#"><i class="fa  fa-times"></i></a></span><h3> <span id="workinglbldelete"></span> information Delete?</h3></div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="empWorkingIdDelete" class="col-sm-12 control-label">Are You Sure To delete <span id="workinglbldelete2"></span> Information?</label>
+                            <input type="hidden" id="empWorkingIdDelete" name="empWorkingIdDelete" value="0" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" style="text-align:right;top:40px;">
+                        <div class="btn-group" role="group" aria-label="..." style="">
+                            <button id="btnWorkingDeleteCancel" type="button" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-default">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="contactUpdat" href="#"><i class="fa fa-pencil fa-2x"></i></a></span><h3>Personal contact info</h3></div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;<span id="personName">@ViewBag.Employee.Person.PersonName</span> </p>
+                            <p><i class="fa fa-male"></i>&nbsp;&nbsp;&nbsp; <span id="fatherName">@ViewBag.Employee.Person.FatherName</span></p>
+                            <p><i class="fa fa-female"></i> &nbsp;&nbsp;&nbsp;<span id="motherName">@ViewBag.Employee.Person.MotherName</span></p>
+                            <p><i class="fa fa-envelope"></i> &nbsp;&nbsp;&nbsp;<span id="userEmail">@ViewBag.Employee.User.Email</span></p>
+                            <p><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp; <span id="personContactNo">@ViewBag.Employee.Person.ContactNo</span></p>
+                            <p><i class="fa fa-mobile"></i> &nbsp;&nbsp;&nbsp;<span id="personSecondContact">@ViewBag.Employee.Person.SecondContactNo</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="openEmpInfoPopup" href="#"><i class="fa fa-pencil fa-2x"></i></a></span><h3>Employee Information</h3></div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoEmpCode" class="col-sm-5 control-label">Employee Code</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoEmpCode" id="spnempInfoEmpCode">
+                                        @ViewBag.Employee.EmployeeCode
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoDept" class="col-sm-5 control-label">Department</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoDept" id="spnempInfoDept">
+                                        @if (ViewBag.Employee.DepartmentId != null)
+                                        {<text>@ViewBag.Employee.Department.DepartmentName</text> }
+                                    </span>
+                                    <input type="hidden" id="hdempInfoDeptid" value="@if (ViewBag.Employee.DepartmentId != null) {@ViewBag.Employee.DepartmentId} else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoDesig" class="col-sm-5 control-label">Designation</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoDesig" id="spnempInfoDesig">
+                                        @if (ViewBag.Employee.DesignationId != null)
+                                        {@ViewBag.Employee.Designation.DesignationName }
+                                    </span>
+                                    <input type="hidden" id="hdempInfoDesigid" value="@if (ViewBag.Employee.DesignationId != null) {@ViewBag.Employee.DesignationId} else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoBoss" class="col-sm-5 control-label">Boss</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoBoss" id="spnempInfoBoss">
+                                        @if (ViewBag.Employee.Boss != null)
+                                        {@ViewBag.Employee.Boss.Person.PersonName }
+                                    </span>
+                                    <input type="hidden" id="hdMorebossdeptid" value="@if (ViewBag.Employee.Boss != null)
+                                    { if(ViewBag.Employee.Boss.DepartmentId != null) {@ViewBag.Employee.Boss.DepartmentId } else { var y = 0;@y } } else { var x = 0;@x } " />
+                                    <input type="hidden" id="hdMorebossid" value="@if (ViewBag.Employee.Boss != null)
+                                    { @ViewBag.Employee.Boss.EmployeeId } else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="educationinfo">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="educationAdd"><i class="fa fa-plus fa-2x"></i></a></span><h3>Education</h3></div>
+                <div class="content" id="educationContent">
+                    @if (ViewBag.Employee.EmployeeEducations.Count > 0)
+                    {
+                        var idx = 1;
+
+                        foreach (var education in ViewBag.Employee.EmployeeEducations)
+                        {
+                            var chked = education.IsForeign == true ? "checked" : "";
+                            <div class="row">
+                                <input type="hidden" value="@education.EmployeeEducationId" class="empEducationId" id="empEducationId+@idx" />
+                                <div class="col-md-12">
+                                    <div class="header">
+                                        <span class="pull-right" style="margin-right:10px;"><a class="empEducationUpdate" id="educationLblUpdate+@idx"><i class="fa fa-pencil"></i></a></span>
+
+                                        <span class="pull-right" style="margin-right:10px;"><a class="empEducationDelete" id="empEducationDelete+@idx"><i class="fa fa-times"></i></a></span>
+
+                                        <h3>
+
+                                            @if (education.EducationLevelId != null)
+                                            {
+                                                <span class="headEducationlbl" id="headEducationlbl+@idx">
+                                                    <text>@education.EducationLevel.EducationLevelName</text>
+                                                </span>
+                                                    <input type="hidden" class="edulblid" value="@education.EducationLevelId" />
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" class="edulblid" value="0" />
+                                            }
+
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" id="divEducation+@idx">
+                                    <div class="form-group">
+                                        <input type="hidden" class="EmployeeEducationId" id="educationlblid+@idx" value="@education.EmployeeEducationId" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtBirthday" class="col-sm-5 control-label">Exam/Degree Title</label>
+                                        <div class="col-sm-7">
+                                            <span class="txtExamTitle" id="txtExamTitle+@idx">@education.ExamTitle</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtBirthday" class="col-sm-5 control-label">Concentration/ Major/Group</label>
+                                        <div class="col-sm-7">
+                                            <span class="txtGroup" id="txtGroup+@idx">@education.GroupName</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtBirthday" class="col-sm-5 control-label">Institute Name</label>
+                                        <div class="col-sm-7">
+                                            <span class="txtInstitute" id="txtInstitute+@idx">@education.InstituteName</span>
+                                        </div>
+                                        <label for="txtBirthday" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-7">
+                                            <input id="isForign" onclick="return false" name="isForign" type="checkbox" @chked />
+                                            <span style="font-size:10px;">Is specified institute is a foreign institute?</span>
+                                            @if (education.IsForeign == false)
+                                            {
+                                                <input type="hidden" value="0" class="isForignInstiture" />
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" value="1" class="isForignInstiture" />
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtBirthday" class="col-sm-5 control-label">Result</label>
+                                        <div class="col-sm-7">
+                                            @if (education.ResultId != null)
+                                            {
+                                                <input type="hidden" class="educationResultid" value="@education.ResultId" />
+                                                    <span id="txtResult+@idx">
+                                                        <text>@education.Result.ResultName</text>
+                                                    </span>
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" class="educationResultid" value="0" />
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (education.IsMarksMention == false)
+                                {
+                                    <input type="hidden" value="0" class="isDisagreeMarksMention" />
+                                }
+                                else
+                                {
+                                    <input type="hidden" value="1" class="isDisagreeMarksMention" />
+                                }
+                                @if (education.ResultId != null && education.ResultId > 0 && education.ResultId < 5 && education.IsMarksMention == false)
+                                {
+                                    if (education.ResultId == 4)
+                                    {
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="txtBirthday" class="col-sm-5 control-label">CGPA</label>
+                                                <div class="col-sm-7">
+                                                    <span id="txtGrade+@idx" class="txtGrade">
+                                                        @if (education.Grade != null)
+                                                        { <text>@education.Grade</text>}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="txtBirthday" class="col-sm-5 control-label">Scale</label>
+                                                <div class="col-sm-7">
+                                                    <span id="txtScale+@idx" class="txtScale">
+                                                        @if (education.Grade != null)
+                                                        { <text>@education.Grade</text>}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="txtBirthday" class="col-sm-5 control-label">Marks (Percent)</label>
+                                                <div class="col-sm-7">
+                                                    <span id="txtMarks+@idx" class="txtMarks">
+                                                        @if (education.MarksPercent != null)
+                                                        { <text>@education.MarksPercent</text>}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtBirthday" class="col-sm-5 control-label">Year Of Passing</label>
+                                        <div class="col-sm-7">
+                                            <span class="yearofpass" id="yearofpass+@idx">@education.YearOfPassing</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtBirthday" class="col-sm-5 control-label">Duration</label>
+                                        <div class="col-sm-7">
+                                            <span class="eduduration" id="eduduration+@idx">@education.Duration</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtBirthday" class="col-sm-5 control-label">Achievement</label>
+                                        <div class="col-sm-7">
+                                            <span class="eduachievement" id="txtExamTitle+@idx">@education.Achievement</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a href="#" id="certificationAdd"><i class="fa fa-plus fa-2x"></i></a></span><h3>Certification</h3></div>
+                <div id="certificationContent" class="content">
+                    @if (ViewBag.Employee.EmployeeCertifications.Count > 0)
+                    {
+                        var idx = 1;
+
+                        foreach (var certification in ViewBag.Employee.EmployeeCertifications)
+                        {
+                            <div class="row">
+                                <input type="hidden" value="@certification.EmployeeCertificationId" class="empCertificationId" id="empCertificationId+@idx" />
+                                <div class="col-md-12">
+                                    <div class="header">
+                                        <span class="pull-right" style="margin-right:10px;"><a href="#" class="openempCertificationUpdate" id="openempCertificationUpdate+@idx"><i class="fa fa-pencil"></i></a></span>
+
+                                        <span class="pull-right" style="margin-right:10px;"><a href="#" class="openCertificationDelete" id="openCertificationDelete+@idx"><i class="fa fa-times"></i></a></span>
+
+                                        <h3>
+
+                                            <span class="headCertificationlbl" id="headCertificationlbl+@idx">
+                                                @certification.CertificationName
+                                            </span>
+
+                                        </h3>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="spnCertificationInstituteName" class="col-sm-5 control-label">Institute Name</label>
+                                        <div class="col-sm-7">
+                                            <span class="spnCertificationInstituteName" id="spnCertificationInstituteName+@idx">@certification.InstituteName</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="txtBirthday" class="col-sm-5 control-label">Location</label>
+                                        <div class="col-sm-7">
+                                            <span class="spnCertificationLocation" id="spnCertificationLocation+@idx">@certification.Location</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="spnCertificationFromDate" class="col-sm-5 control-label">From Date</label>
+                                        <div class="col-sm-7">
+                                            <span class="spnCertificationFromDate" id="spnCertificationFromDate+@idx">@if (certification.FromDate != null)
+                                            { @certification.FromDate.ToString("dd-MM-yyyy")}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="spnCertificationToDate" class="col-sm-5 control-label">To Date</label>
+                                        <div class="col-sm-7">
+                                            <span class="spnCertificationToDate" id="spnCertificationToDate+@idx">
+                                                @if (certification.ToDate != null)
+                                            { @certification.ToDate.ToString("dd-MM-yyyy")}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><span class="pull-right"><a id="moerUpdate" href="#"><i class="fa fa-pencil fa-2x"></i></a></span><h3>Gender, birthday, and more</h3></div>
+                <div class="content">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnMoreGender" class="col-sm-5 control-label">Gender</label>
+                                <div class="col-sm-7">
+                                    <span class="spnMoreGender" id="spnMoreGender">
+                                        @if (ViewBag.Employee.Person.GenderId != null)
+                                        { @ViewBag.Employee.Person.Gender.GenderName}
+                                    </span>
+                                    <input type="hidden" id="hdMoreGenderid" value="@if (ViewBag.Employee.Person.GenderId != null) {@ViewBag.Employee.Person.GenderId} else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnMoreBirthday" class="col-sm-5 control-label">Date Of Birth</label>
+                                <div class="col-sm-7">
+                                    <span class="spnMoreBirthday" id="spnMoreBirthday">
+                                        @if (ViewBag.Employee.Person.DateOfBirth != null)
+                                        { @ViewBag.Employee.Person.DateOfBirth.ToString("dd-MM-yyyy")}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnMoreidType" class="col-sm-5 control-label">
+                                    @if (ViewBag.Employee.Person.IDCardTypeId != null)
+                                { <text>@ViewBag.Employee.Person.IDCardType.IDCardTypeName : </text>}
+                                else
+                                { <text>ID Card Type : </text>}
+                            </label>
+                            <input type="hidden" id="hdMoreidType" value="@if (ViewBag.Employee.Person.IDCardTypeId != null) {@ViewBag.Employee.Person.IDCardTypeId} else { var x = 0;@x } " />
+                            <div class="col-sm-7">
+                                <span class="spnMoreidType" id="spnMoreidType">
+                                    @if (ViewBag.Employee.Person.IDCardNo != null)
+                                    {@ViewBag.Employee.Person.IDCardNo}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnMoreMaritalStauts" class="col-sm-5 control-label">Marital Status</label>
+                            <div class="col-sm-7">
+                                <span class="spnMoreMaritalStauts" id="spnMoreMaritalStauts">
+                                    @if (ViewBag.Employee.Person.MaritalStatusId != null)
+                                    {<text>@ViewBag.Employee.Person.MaritalStatus.MaritalStatusName</text> }
+                                </span>
+                                <input type="hidden" id="hdMoreMaritalStatusid" value="@if (ViewBag.Employee.Person.MaritalStatusId != null) {@ViewBag.Employee.Person.MaritalStatusId} else { var x = 0;@x } " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnMoreReligion" class="col-sm-5 control-label">Religion</label>
+                            <div class="col-sm-7">
+                                <span class="spnMoreReligion" id="spnMoreReligion">
+                                    @if (ViewBag.Employee.Person.ReligionId != null)
+                                    {<text>@ViewBag.Employee.Person.Religion.ReligionName</text> }
+                                </span>
+                                <input type="hidden" id="hdMoreReligionid" value="@if (ViewBag.Employee.Person.ReligionId != null) {@ViewBag.Employee.Person.ReligionId} else { var x = 0;@x } " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnMoreNationality" class="col-sm-5 control-label">Nationality</label>
+                            <div class="col-sm-7">
+                                <span class="spnMoreNationality" id="spnMoreNationality">
+                                    @ViewBag.Employee.Person.Nationality
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="block-flat">
+            <div class="header"><span class="pull-right"><a id="presentpopopen" href="#"><i class="fa fa-pencil fa-2x"></i></a></span><h3>Present Address</h3></div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnPresentAddressmkr" class="col-sm-5 control-label"><i class="fa fa-map-marker"></i></label>
+                            <div class="col-sm-7">
+                                <span class="spnPresentAddressmkr" id="spnPresentAddressmkr">
+                                    @ViewBag.Employee.Person.PresentAddress
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnPresentDistrictid" class="col-sm-5 control-label">District</label>
+                            <div class="col-sm-7">
+                                <span class="spnPresentDistrictid" id="spnPresentDistrictid">
+                                    @if (ViewBag.Employee.Person.PresentDistrictId != null)
+                                    { @ViewBag.Employee.Person.District1.DISTRICT_NAME}
+                                </span>
+                                <input type="hidden" id="hdpresentdistid" value="@if (ViewBag.Employee.Person.PresentDistrictId != null) {@ViewBag.Employee.Person.PresentDistrictId} else { var x = 0;@x } " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnPresentThanaid" class="col-sm-5 control-label">Thana</label>
+                            <div class="col-sm-7">
+                                <span class="spnPresentThanaid" id="spnPresentThanaid">
+                                    @if (ViewBag.Employee.Person.PresentThanaId != null)
+                                    {@ViewBag.Employee.Person.Thana1.THANA_NAME}
+                                </span>
+                                <input type="hidden" id="hdpresentThanaid" value="@if (ViewBag.Employee.Person.PresentThanaId != null) {@ViewBag.Employee.Person.PresentThanaId} else { var x = 0;@x } " />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="block-flat">
+            <div class="header"><span class="pull-right"><a id="permanentpopopen" href="#"><i class="fa fa-pencil fa-2x"></i></a></span><h3>Permanent Address</h3></div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnPermanentAddressmkr" class="col-sm-5 control-label"><i class="fa fa-map-marker"></i></label>
+                            <div class="col-sm-7">
+                                <span class="spnPermanentAddressmkr" id="spnPermanentAddressmkr">
+                                    @ViewBag.Employee.Person.PermanentAddress
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnPermanentDistrictid" class="col-sm-5 control-label">District</label>
+                            <div class="col-sm-7">
+                                <span class="spnPermanentDistrictid" id="spnPermanentDistrictid">
+                                    @if (ViewBag.Employee.Person.DistrictId != null)
+                                    {@ViewBag.Employee.Person.District.DISTRICT_NAME}
+                                </span>
+                                <input type="hidden" id="hdpermanentdistid" value="@if (ViewBag.Employee.Person.DistrictId != null) {@ViewBag.Employee.Person.DistrictId} else { var x = 0;@x } " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="spnPermanentThanaid" class="col-sm-5 control-label">Thana</label>
+                            <div class="col-sm-7">
+                                <span class="spnPermanentThanaid" id="spnPermanentThanaid">
+                                    @if (ViewBag.Employee.Person.ThanaId != null)
+                                    { @ViewBag.Employee.Person.Thana.THANA_NAME}
+                                </span>
+                                <input type="hidden" id="hdpermanentThanaid" value="@if (ViewBag.Employee.Person.ThanaId != null) {@ViewBag.Employee.Person.ThanaId} else { var x = 0;@x } " />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="block-flat">
+            <div class="header"><span class="pull-right"><a href="#" id="trainingAdd"><i class="fa fa-plus fa-2x"></i></a></span><h3>Employee Training</h3></div>
+            <div class="content" id="trainingContent">
+                @if (ViewBag.Employee.EmployeeEducations.Count > 0)
+                {
+                    var idx = 1;
+
+                    foreach (var training in ViewBag.Employee.EmployeeTrainings)
+                    {
+                        <div class="row">
+                            <input type="hidden" value="@training.EmployeeTrainingId" class="empTrainingId" id="empTrainingId+@idx" />
+                            <div class="col-md-12">
+                                <div class="header">
+                                    <span class="pull-right" style="margin-right:10px;"><a class="openempTrainingUpdate" id="openempTrainingUpdate+@idx"><i class="fa fa-pencil"></i></a></span>
+
+                                    <span class="pull-right" style="margin-right:10px;"><a class="openTrainingDelete" id="openTrainingDelete+@idx"><i class="fa fa-times"></i></a></span>
+
+                                    <h3>
+
+                                        <span class="headTraininglbl" id="headTraininglbl+@idx">
+                                            @training.TrainingTitle
+                                        </span>
+
+                                    </h3>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">Topic Covered</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnTopicCover" id="spnTopicCover+@idx">@training.TopicCovered</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">Institute</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnInstitute" id="spnInstitute+@idx">@training.Institute</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="spnCountry" class="col-sm-5 control-label">Country</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnCountry" id="spnCountry+@idx">@training.Country</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">Location</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnLocation" id="spnLocation+@idx">@training.Location</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">Year</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnTrainingYear" id="spnTrainingYear+@idx">@training.TrainingYear</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">Duration</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnDuration" id="spnDuration+@idx">@training.Duration</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="block-flat">
+            <div class="header"><span class="pull-right"><a href="#" id="workingAdd"><i class="fa fa-plus fa-2x"></i></a></span><h3>Work History</h3></div>
+            <div id="workingContent" class="content">
+                @if (ViewBag.Employee.EmployeeEmploymentHistories.Count > 0)
+                {
+                    var idx = 1;
+
+                    foreach (var working in ViewBag.Employee.EmployeeEmploymentHistories)
+                    {
+                        <div class="row">
+                            <input type="hidden" value="@working.EmployeeEmploymentHistoryId" class="empWorkingId" id="empWorkingId+@idx" />
+                            <div class="col-md-12">
+                                <div class="header">
+                                    <span class="pull-right" style="margin-right:10px;"><a href="#" class="openempWorkingUpdate" id="openempWorkingUpdate+@idx"><i class="fa fa-pencil"></i></a></span>
+
+                                    <span class="pull-right" style="margin-right:10px;"><a href="#" class="openWorkingDelete" id="openWorkingDelete+@idx"><i class="fa fa-times"></i></a></span>
+
+                                    <h3>
+
+                                        <span class="headWorkinglbl" id="headWorkinglbl+@idx">
+                                            @working.CompanyName
+                                        </span>
+
+                                    </h3>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="spnCompanyBusiness" class="col-sm-5 control-label">Company Business</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnCompanyBusiness" id="spnCompanyBusiness+@idx">@working.CompanyBusiness</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">Company Location</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnCompanyLocation" id="spnCompanyLocation+@idx">@working.CompanyLocation</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="spnCountry" class="col-sm-5 control-label">Position Held</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnPositionHeld" id="spnPositionHeld+@idx">@working.PositionHeld</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">Department</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnworkDepartment" id="spnworkDepartment+@idx">@working.Department</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="spnResponsibilities" class="col-sm-5 control-label">Responsibilities</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnResponsibilities" id="spnResponsibilities+@idx">@working.Responsibilities</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">From Date</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnworkFromDate" id="spnworkFromDate+@idx">@working.FromDate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBirthday" class="col-sm-5 control-label">To Date</label>
+                                    <div class="col-sm-7">
+                                        <span class="spnworkToDate" id="spnworkToDate+@idx">@working.ToDate</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</div>
+
+@section scripts{
+    var tempScrollTop = $(window).scrollTop();
+    <script src="~/Assets/lib/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script src="~/Assets/lib/fancybox/source/jquery.fancybox.js"></script>
+    <script src="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-buttons.js"></script>
+    <script src="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-media.js"></script>
+    <script src="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>
+    <script>
+        function BindCombo(result, combo) {
+            combo.empty();
+            $.each(result, function () {
+                combo.append(new Option(this.Name, this.ID));
+            });
+        }
+        function LoadThana(id, $element, thanaid) {
+            $.ajax({
+                type: 'POST',
+                url: '/Employee/getThanas',
+                data: JSON.stringify({ id: id }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        BindCombo(data.data, $element);
+                        $element.val(thanaid);
+                    }
+                }
+            });
+        }
+    </script>
+    <script>
+    $(function () {
+        $('#txtBirthday').datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true
+        });
+        $('#txtCertificationTo').datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true
+        });
+        $('#txtCertificationFrom').datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true
+        });
+    });
+    </script>
+    <script>
+    $(function () {
+        $('#resultid').change(function () {
+            var id = $(this).val();
+            if (id == 1 || id == 2 || id == 3) {
+                $('#divMentionAsk').show();
+                $('#divMarks').show();
+                $('#divCGPA').hide();
+            }
+            else if (id == 4) {
+                $('#divMentionAsk').show();
+                $('#divMarks').hide();
+                $('#divCGPA').show();
+            }
+            else {
+                $('#divMentionAsk').hide();
+                $('#divMarks').hide();
+                $('#divCGPA').hide();
+            }
+            if (id == 5 || id == 6) {
+                $('#lblYearOfPass').html('Expected Year of Passing');
+            }
+            else {
+                $('#lblYearOfPass').html('Year of Passing');
+            }
+        });
+        $('#presentdistid').change(function () {
+            var id = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '/Employee/getThanas',
+                data: JSON.stringify({ id: id }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        BindCombo(data.data, $('#presentthanaid'));
+                    }
+                }
+            });
+        });
+        $('#parmanentDistid').change(function () {
+            var id = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '/Employee/getThanas',
+                data: JSON.stringify({ id: id }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        BindCombo(data.data, $('#permanentThanaid'));
+                    }
+                }
+            });
+        });
+        $('#bossdepartmentid').change(function () {
+            var id = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '/Employee/getBoss',
+                data: JSON.stringify({ id: id }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        BindCombo(data.data, $('#bossid'));
+                    }
+                }
+            });
+        });
+        $('#isMentionmarks').change(function () {
+            if ($(this).is(':checked')) {
+                $('#txtMarks').val('');
+                $('#txtCGPA').val('');
+                $('#txtScale').val('');
+                $('#txtMarks').prop('readonly', true);
+                $('#txtCGPA').prop('readonly', true);
+                $('#txtScale').prop('readonly', true);
+            }
+            else {
+                $('#txtMarks').prop('readonly', false);
+                $('#txtCGPA').prop('readonly', false);
+                $('#txtScale').prop('readonly', false);
+            }
+        });
+    });
+
+    </script>
+
+    <script>
+    $(document).ready(function () {
+
+        $('#chkisForign').change(function () {
+            cb = $(this);
+            cb.val(cb.prop('checked'));
+        });
+        $('#isMentionmarks').change(function () {
+            cb = $(this);
+            cb.val(cb.prop('checked'));
+        });
+            //form validation
+            var form = $('#personal-edu-update');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeeEducation(form);
+                },
+                ignore: null,
+                rules: {
+
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee More Form Submit Handler
+            function SubmitEmployeeEducation(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    beforeSend: function () {
+                        $(MainForm).find('.btn').attr('disabled', 'disabled');
+                        $(MainForm).find('#btn-submit-mainform').html('Working...');
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if(result.status="error") {
+                            alert(result.msg);
+                        }
+                        $(MainForm).find('.btn').removeAttr("disabled");
+                        $(MainForm).find('#btn-submit-mainform').html('Search');
+
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#personal-certification-update');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeeCertificaton(form);
+                },
+                ignore: null,
+                rules: {
+
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee Form Submit Handler
+            function SubmitEmployeeCertificaton(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if (result.status = "error") {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to update. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#personal-working-update');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeeWorking(form);
+                },
+                ignore: null,
+                rules: {
+
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee Form Submit Handler
+            function SubmitEmployeeWorking(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if (result.status = "error") {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to update. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#personal-training-update');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeeTraining(form);
+                },
+                ignore: null,
+                rules: {
+
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee Form Submit Handler
+            function SubmitEmployeeTraining(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if (result.status = "error") {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to update. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#permanent-address-update');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeePermanentAddress(form);
+                },
+                ignore: null,
+                rules: {
+
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee Form Submit Handler
+            function SubmitEmployeePermanentAddress(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if (result.status = "error") {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#present-address-update');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeePresentAddress(form);
+                },
+                ignore: null,
+                rules: {
+
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee Form Submit Handler
+            function SubmitEmployeePresentAddress(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if (result.status = "error") {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+    $(document).ready(function () {
+        $('.fancybox').fancybox();
+        //form validation
+        var form = $('#personal-conact-update');
+        form.validate({
+            submitHandler: function () {
+                SubmitEmployeeContact(form);
+            },
+            ignore: null,
+            rules: {
+                txtEmail: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+
+            }
+
+        });
+        //Employee Form Submit Handler
+        function SubmitEmployeeContact(MainForm) {
+            var SubmitURL = MainForm.attr('action');
+            var FormData = MainForm.serialize();
+            $.ajax({
+                type: "POST",
+                url: SubmitURL,
+                async: true,
+                //If datatype is of 'FormCollection', following 3 lines are not needed-
+                //====================================================
+                //contentType: "application/json; charset=utf-8",
+                //data: "{'agentdata':'"+ agentdata +"'}",
+                //dataType: 'json',
+                //====================================================
+                data: FormData,
+                beforeSend: function () {
+                    $(MainForm).find('.btn').attr('disabled', 'disabled');
+                    $(MainForm).find('#btn-submit-mainform').html('Working...');
+                },
+                success: function (result) {
+                    if (result.status == "success") {
+                        $('#personName').html($('#txtName').val());
+                        $('#fatherName').html($('#txtFatherName').val());
+                        $('#motherName').html($('#txtMotherName').val());
+                        $('#userEmail').html($('#txtEmail').val());
+                        $('#personContactNo').html($('#txtContactNo').val());
+                        $('#personSecondContact').html($('#txtSecondContact').val());
+                        $('#popup,#layer').hide();
+                    }
+                    else if(result.status="error") {
+                        alert(result.msg);
+                    }
+                    $(MainForm).find('.btn').removeAttr("disabled");
+                    $(MainForm).find('#btn-submit-mainform').html('Search');
+
+                },
+                error: function (request, status, error) {
+                    alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                },
+                complete: function () {
+
+                }
+            });
+            return false;
+        }
+    });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#personal-more-update');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeeMore(form);
+                },
+                ignore: null,
+                rules: {
+
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee More Form Submit Handler
+            function SubmitEmployeeMore(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if(result.status="error") {
+                            alert(result.msg);
+                        }
+
+
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#employee-info-update');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeeInfo(form);
+                },
+                ignore: null,
+                rules: {
+                    txtEmail: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee More Form Submit Handler
+            function SubmitEmployeeInfo(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if(result.status="error") {
+                            alert(result.msg);
+                        }
+                        $(MainForm).find('.btn').removeAttr("disabled");
+                        $(MainForm).find('#btn-submit-mainform').html('Search');
+
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+
+    <script>
+    $(function () {
+        $('#contactUpdat').click(function () {
+            $('#txtName').val($('#personName').html().trim());
+            $('#txtFatherName').val($('#fatherName').html().trim());
+            $('#txtMotherName').val($('#motherName').html().trim());
+            $('#txtEmail').val($('#userEmail').html().trim());
+            $('#txtContactNo').val($('#personContactNo').html().trim());
+            $('#txtSecondContact').val($('#personSecondContact').html().trim());
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#popup,#layer').show();
+        });
+        $('#btnContactCancel').click(function () {
+            $('#popup,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose').click(function () {
+            $('#popup,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#moerUpdate').click(function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#genderid').val($('#hdMoreGenderid').val().trim());
+            $("#txtBirthday").datepicker("setDate", $('#spnMoreBirthday').html().trim());
+            $('#idtypeid').val($('#hdMoreidType').val().trim());
+            $('#txtIDCardNo').val($('#spnMoreidType').html().trim());
+            $('#maritalid').val($('#hdMoreMaritalStatusid').val().trim());
+            $('#religionid').val($('#hdMoreReligionid').val().trim());
+            $('#txtNationality').val($('#spnMoreNationality').html().trim());
+            $('#popup4more,#layer').show();
+        });
+        $('#btnMoreCancel').click(function () {
+            $('#popup4more,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4more').click(function () {
+            $('#popup4more,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#openEmpInfoPopup').click(function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#txtEmpCode').val($('#spnempInfoEmpCode').html().trim());
+            $('#pdepartmentid').val($('#hdempInfoDeptid').val().trim());
+            $('#pdesignationid').val($('#hdempInfoDesigid').val().trim());
+            $('#bossdepartmentid').val($('#hdMorebossdeptid').val().trim()).change();
+            $('#bossid').val($('#hdMorebossid').val().trim());
+            $('#popup4empinfo,#layer').show();
+        });
+        $('#btnEmpInfoCancel').click(function () {
+            $('#popup4empinfo,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4empinfo').click(function () {
+            $('#popup4empinfo,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#presentpopopen').click(function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#txtPresentAddress').val($('#spnPresentAddressmkr').html().trim());
+            $('#presentdistid').val($('#hdpresentdistid').val().trim());
+            LoadThana($('#hdpresentdistid').val().trim(), $('#presentthanaid'), $('#hdpresentThanaid').val().trim());
+            $('#popup4PresentAddress,#layer').show();
+        });
+        $('#btnPresentCancel').click(function () {
+            $('#popup4PresentAddress,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4presentaddress').click(function () {
+            $('#popup4PresentAddress,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#permanentpopopen').click(function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#txtPermanentAddress').val($('#spnPermanentAddressmkr').html().trim());
+            $('#parmanentDistid').val($('#hdpermanentdistid').val().trim());
+            LoadThana($('#hdpermanentdistid').val().trim(), $('#permanentThanaid'), $('#hdpermanentThanaid').val().trim());
+            $('#popup4PermanetAddress,#layer').show();
+        });
+        $('#btnPermanentCancel').click(function () {
+            $('#popup4PermanetAddress,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4permanentAddress').click(function () {
+            $('#popup4PermanetAddress,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#educationAdd').click(function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#educationId').val(0);
+            $('#popup4edu,#layer').show();
+        });
+        $('#btnEduCancel').click(function () {
+            $('#popup4edu,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#educationContent').on('click', '.empEducationUpdate', function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#educationId').val($(this).closest('.row').find('.empEducationId').val());
+            $('#edulblid').val($(this).closest('.row').find('.edulblid').val());
+            $('#txtExamTitle').val($(this).closest('.row').find('.txtExamTitle').html());
+            $('#txtGroup').val($(this).closest('.row').find('.txtGroup').html());
+            $('#txtInstitute').val($(this).closest('.row').find('.txtInstitute').html());
+            var isForignInstitute = $(this).closest('.row').find('.isForignInstiture').val();
+            if (isForignInstitute == 1) {
+                $('#chkisForign').prop('checked', true);
+            }
+            else {
+                $('#chkisForign').prop('checked', false);
+            }
+
+            var id = $(this).closest('.row').find('.educationResultid').val();
+            var isDisagree = $(this).closest('.row').find('.isDisagreeMarksMention').val();
+            $('#resultid').val(id);
+            if (id == 1 || id == 2 || id == 3) {
+
+                if (isDisagree == 1) {
+                    $('#isMentionmarks').prop('checked', true);
+                    $('#txtMarks').val('');
+                    $('#txtCGPA').val('');
+                    $('#txtScale').val('');
+                    $('#txtMarks').prop('readonly', true);
+                    $('#txtCGPA').prop('readonly', true);
+                    $('#txtScale').prop('readonly', true);
+                }
+                else {
+                    $('#isMentionmarks').prop('checked', false);
+                    $('#txtMarks').prop('readonly', false);
+                    $('#txtCGPA').prop('readonly', false);
+                    $('#txtScale').prop('readonly', false);
+                }
+
+                $('#divMentionAsk').show();
+                $('#divMarks').show();
+                $('#divCGPA').hide();
+
+
+            }
+            else if (id == 4) {
+
+                if (isDisagree == 1) {
+                    $('#isMentionmarks').prop('checked', true);
+                    $('#txtMarks').val('');
+                    $('#txtCGPA').val('');
+                    $('#txtScale').val('');
+                    $('#txtMarks').prop('readonly', true);
+                    $('#txtCGPA').prop('readonly', true);
+                    $('#txtScale').prop('readonly', true);
+                }
+                else {
+                    $('#isMentionmarks').prop('checked', false);
+                    $('#txtCGPA').val($(this).closest('.row').find('.txtGrade').html());
+                    $('#txtScale').val($(this).closest('.row').find('.txtScale').html());
+                    $('#txtMarks').prop('readonly', false);
+                    $('#txtCGPA').prop('readonly', false);
+                    $('#txtScale').prop('readonly', false);
+                }
+
+                $('#divMentionAsk').show();
+                $('#divMarks').hide();
+                $('#divCGPA').show();
+            }
+            else {
+                $('#divMentionAsk').hide();
+                $('#divMarks').hide();
+                $('#divCGPA').hide();
+            }
+            if (id == 5 || id == 6) {
+                $('#lblYearOfPass').html('Expected Year of Passing');
+            }
+            else {
+                $('#lblYearOfPass').html('Year of Passing');
+            }
+            $('#txtYear').val($(this).closest('.row').find('.yearofpass').html());
+            $('#txtDuration').val($(this).closest('.row').find('.eduduration').html());
+            $('#txtAchievement').val($(this).closest('.row').find('.eduachievement').html());
+            $('#popup4edu,#layer').show();
+        });
+        $('#boxclose4edu').click(function () {
+            $('#popup4edu,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#educationContent').on('click', '.empEducationDelete', function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#empEducationIdDelete').val($(this).closest('.row').find('.EmployeeEducationId').val());
+            $('#educationlbldelete').html($(this).closest('.row').find('.headEducationlbl').html());
+            $('#educationlbldelete2').html($(this).closest('.row').find('.headEducationlbl').html());
+            $('#popup4eduDelete,#layer').show();
+        });
+        $('#btnEduDeleteCancel').click(function () {
+            $('#popup4eduDelete,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4eduDelete').click(function () {
+            $('#popup4eduDelete,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#trainingAdd').click(function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#trainingid').val(0);
+            $('#popup4training,#layer').show();
+        });
+        $('#btnTrainingCancel').click(function () {
+            $('#popup4training,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4training').click(function () {
+            $('#popup4training,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+        $('#trainingContent').on('click', '.openempTrainingUpdate', function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#trainingid').val($(this).closest('.row').find('.empTrainingId').val());
+            $('#txtTrainingTitle').val($(this).closest('.row').find('.headTraininglbl').html());
+            $('#txtTopic').val($(this).closest('.row').find('.spnTopicCover').html());
+            $('#txtTrainInstitute').val($(this).closest('.row').find('.spnInstitute').html());
+            $('#txtTrainCountry').val($(this).closest('.row').find('.spnCountry').html());
+            $('#txtTrainLocation').val($(this).closest('.row').find('.spnLocation').html());
+            $('#txtTrainYear').val($(this).closest('.row').find('.spnTrainingYear').html());
+            $('#txtTrainDuration').val($(this).closest('.row').find('.spnDuration').html());
+            $('#popup4training,#layer').show();
+        });
+
+        $('#trainingContent').on('click', '.openTrainingDelete', function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#empTrainingIdDelete').val($(this).closest('.row').find('.empTrainingId').val());
+            $('#traininglbldelete').html($(this).closest('.row').find('.headTraininglbl').html());
+            $('#traininglbldelete2').html($(this).closest('.row').find('.headTraininglbl').html());
+            $('#popup4trainingDelete,#layer').show();
+        });
+        $('#btnTrainingDeleteCancel').click(function () {
+            $('#popup4trainingDelete,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4trainingDelete').click(function () {
+            $('#popup4trainingDelete,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#workingAdd').click(function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#workingid').val(0);
+            $('#popup4working,#layer').show();
+        });
+        $('#workingContent').on('click', '.openempWorkingUpdate', function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#workingid').val($(this).closest('.row').find('.empWorkingId').val());
+            $('#txtWorkCompany').val($(this).closest('.row').find('.headWorkinglbl').html());
+            $('#txtCompanyBusiness').val($(this).closest('.row').find('.spnCompanyBusiness').html());
+            $('#txtCompanyLocation').val($(this).closest('.row').find('.spnCompanyLocation').html());
+            $('#txtPositionHeld').val($(this).closest('.row').find('.spnPositionHeld').html());
+            $('#txtCompanyDept').val($(this).closest('.row').find('.spnworkDepartment').html());
+            $('#txtComResponsibilities').val($(this).closest('.row').find('.spnResponsibilities').html());
+            $('#txtWorkFrom').val($(this).closest('.row').find('.spnworkFromDate').html());
+            $('#txtWorkTo').val($(this).closest('.row').find('.spnworkToDate').html());
+            $('#popup4working,#layer').show();
+        });
+        $('#btnWorkCancel').click(function () {
+            $('#popup4working,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4working').click(function () {
+            $('#popup4working,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#btnWorkingDeleteCancel').click(function () {
+            $('#popup4workingDelete,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#workingContent').on('click', '.openWorkingDelete', function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#empWorkingIdDelete').val($(this).closest('.row').find('.empWorkingId').val());
+            $('#workinglbldelete').html($(this).closest('.row').find('.headWorkinglbl').html());
+            $('#workinglbldelete2').html($(this).closest('.row').find('.headWorkinglbl').html());
+            $('#popup4workingDelete,#layer').show();
+        });
+        $('#boxclose4workingDelete').click(function () {
+            $('#popup4workingDelete,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#certificationAdd').click(function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#certificationid').val(0);
+            $('#popup4certification,#layer').show();
+        });
+        $('#certificationContent').on('click', '.openempCertificationUpdate', function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#certificationid').val($(this).closest('.row').find('.empCertificationId').val());
+            $('#txtCertificationName').val($(this).closest('.row').find('.headCertificationlbl').html());
+            $('#txtCertificationInstitute').val($(this).closest('.row').find('.spnCertificationInstituteName').html());
+            $('#txtCertificationLocation').val($(this).closest('.row').find('.spnCertificationLocation').html());
+            $("#txtCertificationFrom").datepicker("setDate", $(this).closest('.row').find('.spnCertificationFromDate').html());
+            $("#txtCertificationTo").datepicker("setDate", $(this).closest('.row').find('.spnCertificationToDate').html());
+            $('#popup4certification,#layer').show();
+        });
+        $('#btnCertificationCancel').click(function () {
+            $('#popup4certification,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#boxclose4certification').click(function () {
+            $('#popup4certification,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#btnCertificationDeleteCancel').click(function () {
+            $('#popup4certificationDelete,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+        $('#certificationContent').on('click', '.openCertificationDelete', function () {
+            tempScrollTop = $(window).scrollTop();
+            scroll(0, 0);
+            $('#empCertificationIdDelete').val($(this).closest('.row').find('.empCertificationId').val());
+            $('#certificationlbldelete').html($(this).closest('.row').find('.headCertificationlbl').html());
+            $('#certificationlbldelete2').html($(this).closest('.row').find('.headCertificationlbl').html());
+            $('#popup4certificationDelete,#layer').show();
+        });
+        $('#boxclose4certificationDelete').click(function () {
+            $('#popup4certificationDelete,#layer').hide();
+            $(window).scrollTop(tempScrollTop);
+            return false;
+        });
+
+        $('#layer').click(function () {
+            $('#popup,#popup4more,#layer,#popup4edu,#popup4empinfo,#popup4PermanetAddress,#popup4PresentAddress,#popup4training,#popup4eduDelete,#popup4trainingDelete,#popup4working,#popup4workingDelete,#popup4certification,#popup4certificationDelete').hide();
+            $(window).scrollTop(tempScrollTop);
+        });
+    });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#personal-education-delete');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEducationDelete(form);
+                },
+                ignore: null,
+                rules: {
+                    txtEmail: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee More Form Submit Handler
+            function SubmitEducationDelete(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if(result.status="error") {
+                            alert(result.msg);
+                        }
+
+
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#personal-training-delete');
+            form.validate({
+                submitHandler: function () {
+                    SubmitTrainingDelete(form);
+                },
+                ignore: null,
+                rules: {
+                    txtEmail: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee More Form Submit Handler
+            function SubmitTrainingDelete(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if(result.status="error") {
+                            alert(result.msg);
+                        }
+
+
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#personal-working-delete');
+            form.validate({
+                submitHandler: function () {
+                    SubmitWorkingDelete(form);
+                },
+                ignore: null,
+                rules: {
+                    txtEmail: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee More Form Submit Handler
+            function SubmitWorkingDelete(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if(result.status="error") {
+                            alert(result.msg);
+                        }
+
+
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //form validation
+            var form = $('#personal-certification-delete');
+            form.validate({
+                submitHandler: function () {
+                    SubmitWorkingDelete(form);
+                },
+                ignore: null,
+                rules: {
+                    txtEmail: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+
+                }
+
+            });
+            //Employee More Form Submit Handler
+            function SubmitWorkingDelete(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    data: FormData,
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            location.reload();
+                        }
+                        else if(result.status="error") {
+                            alert(result.msg);
+                        }
+
+
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+}
+

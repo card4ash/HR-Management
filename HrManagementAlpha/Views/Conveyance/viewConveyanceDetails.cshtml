@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "viewConveyanceDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="block-flat">
+            <div class="header"><h3>Create Conveyance</h3></div>
+            <div class="content">
+                <form id="form-create-conveyance" action="#" data-parsley-validate="" novalidate="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtJobNo" class="col-sm-3 control-label">Conveyance Status</label>
+                                <div class="col-sm-7">
+                                    <span>@ViewBag.Conveyance.ConveyanceStatu.ConveyanceStatusName</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtJobNo" class="col-sm-3 control-label">Job No</label>
+                                <div class="col-sm-7">
+                                    <span>@ViewBag.Conveyance.JobNo</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtCostCentre" class="col-sm-3 control-label">Cost Centre</label>
+                                <div class="col-sm-7">
+                                    <span>@ViewBag.Conveyance.CostCentre</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtClientName" class="col-sm-3 control-label">Name Of Client</label>
+                                <div class="col-sm-7">
+                                    <span>@ViewBag.Conveyance.NameOfClient</span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" @if (ViewBag.Conveyance.IsBillableToClient) { <text>checked</text> } id="isbillableToClient" name="isbillableToClient" class="icheck" />
+                                    Billable To Client
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="conveyancetbl">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Purpose</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Mode Of Transport</th>
+                                        <th>Fare (Taka)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var row in ViewBag.Conveyance.ConveyanceBillRows)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (row.RowDate != null) { @row.RowDate.ToString("dd-MM-yyyy")}
+                                            </td>
+                                            <td>
+                                                @row.Purpose
+                                            </td>
+                                            <td>
+                                                @row.FromLocation
+                                            </td>
+                                            <td>
+                                                @row.ToLocation
+                                            </td>
+                                            <td>
+                                                @row.MadeOfTransport
+                                            </td>
+                                            <td>
+                                                @row.Fare
+                                            </td>
+                                            
+                                        </tr>
+                                    }
+                                    
+                                    <tr>
+                                        <td colspan="5">
+                                            Total
+                                        </td>
+                                        <td>
+                                            @ViewBag.Conveyance.TotalBill
+                                        </td>
+                                        
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    
+    
+}

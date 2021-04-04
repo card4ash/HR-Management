@@ -1,0 +1,356 @@
+﻿
+@{
+    ViewBag.Title = "SearchEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent{
+    <link href="~/Assets/lib/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-buttons.css" rel="stylesheet" />
+    <link href="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-thumbs.css" rel="stylesheet" />
+    <style>
+        .btn-xs {
+            padding: 2px 5px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
+
+        #imgPreviewWithStyles {
+            background: #222;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            padding: 15px;
+            z-index: 999;
+            border: none;
+        }
+
+            /* Text below image */
+            #imgPreviewWithStyles span {
+                color: white;
+                text-align: center;
+                display: block;
+                padding: 10px 0 3px 0;
+            }
+
+        .icons {
+            float: right;
+            margin-right: 8px;
+        }
+
+        nav.download {
+            background-color: #E0EAF1;
+            height: 40px;
+            width: 100%;
+        }
+
+            nav.download ul {
+                list-style: none;
+                margin: 0;
+            }
+
+            nav.download li {
+                float: left;
+                width: auto;
+                line-height: 40px;
+                vertical-align: middle;
+                text-align: center;
+                margin: 0;
+            }
+
+        nav li a {
+            width: 100px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+
+        .control-group {
+            border: 0px;
+        }
+
+        .ui-datepicker-append {
+            display: none;
+        }
+    </style>
+}
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="block-flat">
+                <div class="header"><h3>Search Employee</h3></div>
+                <div class="content">
+                    <form id="form-search-employee" action="/Employee/SearchEmployee" data-parsley-validate="" novalidate="">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="txtName" class="col-sm-3 control-label">Name</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtName" name="txtName" type="text" placeholder="Name" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="departmentid" class="col-sm-3 control-label">Department</label>
+                                    <div class="col-sm-7">
+                                        <select class="nostyle  departmentid" id="departmentid" style="width: 100%;" name="departmentid">
+                                            <option></option>
+                                            @foreach (var dept in ViewBag.Departments)
+                                            {
+                                                <option value="@dept.ID">@dept.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="designationid" class="col-sm-3 control-label">Designation</label>
+                                    <div class="col-sm-7">
+                                        <select class="designationid" id="designationid" style="width: 100%;" name="designationid">
+                                            <option></option>
+                                            @foreach (var desig in ViewBag.Designations)
+                                            {
+                                                <option value="@desig.ID">@desig.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtEmail" name="txtEmail" type="email" placeholder="Email" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="txtMobile" class="col-sm-3 control-label">Mobile</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtMobile" name="txtMobile" type="text" placeholder="Mobile" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="txtEmpCode" class="col-sm-3 control-label">Employee Code</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtEmpCode" name="txtEmpCode" type="text" placeholder="Employee Code" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="txtNID" class="col-sm-3 control-label">NID / Passport</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtNID" name="txtNID" type="text" placeholder="National ID/Passport" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="districtid" class="col-sm-3 control-label">District</label>
+                                    <div class="col-sm-7">
+                                        <select class="nostyle  districtid" id="districtid" style="width: 100%;" name="districtid">
+                                            <option></option>
+                                            @foreach (var dist in ViewBag.Districts)
+                                            {
+                                                <option value="@dist.ID">@dist.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="thanaid" class="col-sm-3 control-label">Thana</label>
+                                    <div class="col-sm-7">
+                                        <select class="thanaid" id="thanaid" style="width: 100%;" name="thanaid">
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="educationlblid" class="col-sm-3 control-label">Education Lebel</label>
+                                    <div class="col-sm-7">
+                                        <select class="nostyle  educationlblid" id="educationlblid" style="width: 100%;" name="educationlblid">
+                                            <option></option>
+                                            @foreach (var edu in ViewBag.EducationLebel)
+                                            {
+                                                <option value="@edu.ID">@edu.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="genderid" class="col-sm-3 control-label">Gender</label>
+                                    <div class="col-sm-7">
+                                        <select class="nostyle  genderid" id="genderid" style="width: 100%;" name="genderid">
+                                            <option></option>
+                                            @foreach (var gen in ViewBag.Genders)
+                                            {
+                                                <option value="@gen.ID">@gen.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="maritalstatusid" class="col-sm-3 control-label">Marital Staus</label>
+                                    <div class="col-sm-7">
+                                        <select class="nostyle  maritalstatusid" id="maritalstatusid" style="width: 100%;" name="maritalstatusid">
+                                            <option></option>
+                                            @foreach (var merital in ViewBag.MaritalStatus)
+                                            {
+                                                <option value="@merital.ID">@merital.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row" id="search-result-class" style="display:none;">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <span id="search-result-count">Employee Search Result</span>  
+                </h4>
+
+
+            </div>
+            <div class="panel-body noPad">
+                <div id="downloadorderDetail"></div>
+                <table id="searchResult" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Email</th>
+                            <th>Contact Number</th>
+                            <th>Department</th>
+                            <th>Designation</th>
+                            <th>Photo</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+<script src="~/Assets/lib/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+<script src="~/Assets/lib/fancybox/source/jquery.fancybox.js"></script>
+<script src="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-buttons.js"></script>
+<script src="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-media.js"></script>
+<script src="~/Assets/lib/fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>
+    <script>
+        $(function () {
+            $('.fancybox').fancybox();
+            $('#departmentid').select2({ placeholder: "Select Department." });
+            $('#designationid').select2({ placeholder: "Select Designation." });
+            $('#districtid').select2({ placeholder: "Select District." });
+            $('#thanaid').select2({ placeholder: "Select Thana." });
+            $('#educationlblid').select2({ placeholder: "Select Education Lebel." });
+            $('#genderid').select2({ placeholder: "Select Gender." });
+            $('#maritalstatusid').select2({ placeholder: "Select Marital Status." });
+        });
+    </script>
+<script type="text/javascript">
+        // document ready function
+        $(document).ready(function () {
+            
+            //form validation
+            var form = $('#form-search-employee');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeeSearchForm(form);
+                },
+                ignore: null,
+                rules: {
+                    
+                },
+                messages: {
+                    
+                }
+
+            });
+
+
+            //Employee Form Submit Handler
+            function SubmitEmployeeSearchForm(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    //If datatype is of 'FormCollection', following 3 lines are not needed-
+                    //====================================================
+                    //contentType: "application/json; charset=utf-8",
+                    //data: "{'agentdata':'"+ agentdata +"'}",
+                    //dataType: 'json',
+                    //====================================================
+                    data: FormData,
+                    beforeSend: function () {
+                        $(MainForm).find('.btn').attr('disabled', 'disabled');
+                        $(MainForm).find('#btn-submit-mainform').html('Working...');
+                    },
+                    success: function (result) {
+                        if (result.msg == "success") {
+                            $('tbody').empty();
+                            var resultCount = result.data.length;
+                            $.each(result.data, function () {
+                                $('tbody').append('<tr><td>' + this.Name + '</td><td>' + this.Email + '</td><td style="text-align:left;" class="person-name-td">' + this.Phone + '</td><td>' + this.Department + '</td><td>' + this.Designation + '</td><td><a class="employee-thumb fancybox" href="../../Photos/EmployeePhotos/' + this.Photo + '".jpg"><img width="30px" class="img-rounded" src="../../Photos/EmployeePhotos/' + this.Photo + '"/></a></td><td><div class="btn-group"><a target="_blank" href="/Employee/editEmployeeDetails?id=' + this.Id + '" class="btn btn-info btn-xs">Edit</a><a target="_blank" href="/Employee/viewEmployeeDetails?id=' + this.Id + '" class="btn btn-default btn-xs">Details</a></div></td></tr>');
+                            });
+                            $('#downloadorderDetail').empty();
+                            $('#downloadorderDetail').append('<nav class="download"><ul><li style="font-size: 18px;font-weight:600;margin-left:10px;">' + resultCount + ' Records Found</li> <li style="float:right;margin-right:10px;"><a id="btnExport" href="ExportEmployeeList?name=' + $('#txtName').val() + '" class="hovertip" title="Export To Excel"><i class="fa fa-download"></i></a></li></ul></nav>');
+                            $('#search-result-class').show();
+                            window.location.href = '#search-result-class';
+
+                        }
+                        else {
+                            $('table').hide();
+                            $('#downloadorderDetail').hide();
+                            $('#search-result-count').html('not found.');
+                        }
+                        $(MainForm).find('.btn').removeAttr("disabled");
+                        $(MainForm).find('#btn-submit-mainform').html('Search');
+                        
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                        //alert("Failed to save. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+</script>
+
+
+    }

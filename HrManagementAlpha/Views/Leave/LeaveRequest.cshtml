@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "LeaveRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12">
+    <div class="form-group"></div>
+</div>
+<h2>LeaveRequest</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><h3>Personal contact info</h3></div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="personName" class="col-sm-5 control-label"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Person Name</label>
+                                <div class="col-sm-7">
+                                    <span id="personName">@ViewBag.Employee.Person.PersonName</span> 
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="fatherName" class="col-sm-5 control-label"><i class="fa fa-male"></i>&nbsp;&nbsp;&nbsp;Father Name</label>
+                                <div class="col-sm-7">
+                                    <span id="fatherName">@ViewBag.Employee.Person.FatherName</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="motherName" class="col-sm-5 control-label"><i class="fa fa-female"></i> &nbsp;&nbsp;&nbsp;Mother Name</label>
+                                <div class="col-sm-7">
+                                    <span id="motherName">@ViewBag.Employee.Person.MotherName</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="userEmail" class="col-sm-5 control-label"><i class="fa fa-envelope"></i> &nbsp;&nbsp;&nbsp;Email</label>
+                                <div class="col-sm-7">
+                                    <span id="userEmail">@ViewBag.Employee.User.Email</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="personContactNo" class="col-sm-5 control-label"><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp; Mobile</label>
+                                <div class="col-sm-7">
+                                    <span id="personContactNo">@ViewBag.Employee.Person.ContactNo</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="personSecondContact" class="col-sm-5 control-label"><i class="fa fa-mobile"></i> &nbsp;&nbsp;&nbsp; Second Contact No</label>
+                                <div class="col-sm-7">
+                                    <span id="personSecondContact">@ViewBag.Employee.Person.SecondContactNo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><h3>Leave Remaining Statistics</h3></div>
+                <div class="content">
+                    <div class="row">
+                        @if (ViewBag.LeaveStat != null)
+                        {
+                            foreach (var x in ViewBag.LeaveStat)
+                            {
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label">@x.LeaveType.LeaveTypeName</label>
+                                        <div class="col-sm-7">
+                                            <span class="leaveValue">@x.ReaminingLeave</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><h3>Employee Information</h3></div>
+                <div class="content">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoEmpCode" class="col-sm-5 control-label">Employee Code</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoEmpCode" id="spnempInfoEmpCode">
+                                        @ViewBag.Employee.EmployeeCode
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoOffice" class="col-sm-5 control-label">Office</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoOffice" id="spnempInfoOffice">
+                                        @if (ViewBag.Employee.OfficeId != null)
+                                        {<text>@ViewBag.Employee.Office.OfficeName</text> }
+                                    </span>
+                                    <input type="hidden" id="hdempInfoOfficeid" value="@if (ViewBag.Employee.OfficeId != null) {@ViewBag.Employee.OfficeId} else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoProject" class="col-sm-5 control-label">Project</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoProject" id="spnempInfoProject">
+                                        @if (ViewBag.Employee.ProjectId != null)
+                                        {<text>@ViewBag.Employee.Project.ProjectName</text> }
+                                    </span>
+                                    <input type="hidden" id="hdempInfoProjectid" value="@if (ViewBag.Employee.ProjectId != null) {@ViewBag.Employee.ProjectId} else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoDept" class="col-sm-5 control-label">Department</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoDept" id="spnempInfoDept">
+                                        @if (ViewBag.Employee.DepartmentId != null)
+                                        {<text>@ViewBag.Employee.Department.DepartmentName</text> }
+                                    </span>
+                                    <input type="hidden" id="hdempInfoDeptid" value="@if (ViewBag.Employee.DepartmentId != null) {@ViewBag.Employee.DepartmentId} else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoDesig" class="col-sm-5 control-label">Designation</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoDesig" id="spnempInfoDesig">
+                                        @if (ViewBag.Employee.DesignationId != null)
+                                        {@ViewBag.Employee.Designation.DesignationName }
+                                    </span>
+                                    <input type="hidden" id="hdempInfoDesigid" value="@if (ViewBag.Employee.DesignationId != null) {@ViewBag.Employee.DesignationId} else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="spnempInfoBoss" class="col-sm-5 control-label">Boss</label>
+                                <div class="col-sm-7">
+                                    <span class="spnempInfoBoss" id="spnempInfoBoss">
+                                        @if (ViewBag.Employee.Boss != null)
+                                        {@ViewBag.Employee.Boss.Person.PersonName }
+                                    </span>
+                                    <input type="hidden" id="hdMorebossdeptid" value="@if (ViewBag.Employee.Boss != null)
+                            { if(ViewBag.Employee.Boss.DepartmentId != null) {@ViewBag.Employee.Boss.DepartmentId } else { var y = 0;@y } } else { var x = 0;@x } " />
+                                    <input type="hidden" id="hdMorebossid" value="@if (ViewBag.Employee.Boss != null)
+                            { @ViewBag.Employee.Boss.EmployeeId } else { var x = 0;@x } " />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div class="header"><h3>Leave Request Submission</h3></div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="leaveType" class="col-sm-5 control-label">Leave Type</label>
+                                <div class="col-sm-7">
+                                    <select id="leaveType" class="form-control">
+                                        <option value="1">Fiscal</option>
+                                        <option value="1">Fiscal</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="leaveBegin" class="col-sm-5 control-label">Leave Begin Date</label>
+                                <div class="col-sm-7">
+                                    <input id="leaveBegin" type="text" class="datetimepicker form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="leaveEnd" class="col-sm-5 control-label">Leave Begin Date</label>
+                                <div class="col-sm-7">
+                                    <input id="leaveEnd" type="text" class="datetimepicker form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="userEmail" class="col-sm-5 control-label"><i class="fa fa-envelope"></i> &nbsp;&nbsp;&nbsp;Email</label>
+                                <div class="col-sm-7">
+                                    <span id="userEmail">@ViewBag.Employee.User.Email</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="personContactNo" class="col-sm-5 control-label"><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp; Mobile</label>
+                                <div class="col-sm-7">
+                                    <span id="personContactNo">@ViewBag.Employee.Person.ContactNo</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="personSecondContact" class="col-sm-5 control-label"><i class="fa fa-mobile"></i> &nbsp;&nbsp;&nbsp; Second Contact No</label>
+                                <div class="col-sm-7">
+                                    <span id="personSecondContact">@ViewBag.Employee.Person.SecondContactNo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿@model HrManagementAlpha.ViewModels.RoleViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details Roles</h2>
+
+<div>
+    <input type="hidden" id="roleid" value="@Model.RoleId" />
+    <dl class="dl-horizontal">
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleName)
+        </dd>
+
+    </dl>
+</div>
+
+<div class="row">
+    <div class="block-flat">
+        <div class="header"><h3>User Assigned To This Role</h3></div>
+        <div class="content">
+            <table id="UserInRole">
+                <thead>
+                    <tr><th style="width:50%;text-align:center">User</th><th class="text-center">Action</th></tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var usr in Model.EnRolledUser)
+                    {
+                        <tr style="text-align:center">
+                            <td>@usr.UserName</td>
+                            <td>
+                                <input type="hidden" class="hduserid" value="@usr.UserId" />
+                                <button class="removeusr"><i class="fa fa-times"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RoleId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@section scripts{
+    <script>
+        $(function () {
+            $('#UserInRole').on('click', '.removeusr', function () {
+                var roleid = $('#roleid').val();
+                var userid = $(this).closest('tr').find('.hduserid').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Roles/RemoveUserFromRole',
+                    data: JSON.stringify({ roleid:roleid,userid:userid }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == "success") {
+                            location.reload();
+                        }
+                        else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    }

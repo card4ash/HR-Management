@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "AssignRoleToUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AssignRoleToUsers</h2>
+<div id="alert_placeholder"></div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="block-flat">
+            <div class="header"><h3>Assign Role To Users</h3></div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>Role</span>
+                    </div>
+                    <div class="col-md-7">
+                        <select id="roleid" class="roleid form-control" name="roleid">
+                            @foreach (var item in ViewBag.Roles)
+                            {
+                                <option value="@item.ID">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>Departments</span>
+                    </div>
+                    <div class="col-md-7">
+                        <select id="departmentid" class="departmentid form-control" name="departmentid">
+                            @foreach (var item in ViewBag.Departments)
+                            {
+                                <option value="@item.ID">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="UserInRole">
+                        <thead>
+                            <tr><th style="text-align:center;">Name</th><th style="text-align:center">User</th><th class="text-center">Action</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr style="text-align:center;">
+                                <td>Name</td>
+                                <td>User</td>
+                                <td><input type="checkbox" /><input type="hidden" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            
+            $('#departmentid').change(function () {
+                var roleid = $('#roleid').val();
+                var departmentid = $('#departmentid').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Roles/getUsersInRole',
+                    data: JSON.stringify({ roleid: roleid, departmentid: departmentid }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == "success") {
+                            $('#UserInRole tbody').empty();
+                            $(data.data).each(function () {
+                                var chk = this.IsInRole == true ? "checked" : "";
+                                $('#UserInRole tbody').append('<tr><td>'+this.Name+'</td><td>' + this.UserName + '</td><td><input class="hduserid" type="hidden" value="' + this.UserId + '" /><input class="isInRole" type="checkbox" ' + chk + ' /></td></tr>')
+                            });
+                        }
+                        else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            });
+            $('#roleid').change(function () {
+                var roleid = $('#roleid').val();
+                var departmentid = $('#departmentid').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Roles/getUsersInRole',
+                    data: JSON.stringify({ roleid: roleid, departmentid: departmentid }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == "success") {
+                            $('#UserInRole tbody').empty();
+                            $(data.data).each(function () {
+                                var chk = this.IsInRole == true ? "checked" : "";
+                                $('#UserInRole tbody').append('<tr><td>' + this.Name + '</td><td>' + this.UserName + '</td><td><input class="hduserid" type="hidden" value="' + this.UserId + '" /><input class="isInRole" type="checkbox" ' + chk + ' /></td></tr>')
+                            });
+                        }
+                        else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            });
+            $('#UserInRole').on('change', '.isInRole', function () {
+                var roleid = $('#roleid').val();
+                var userid = $(this).closest('tr').find('.hduserid').val();
+                var statusid = true;
+                if ($(this).is(':checked')) {
+                    statusid = true;
+                }
+                else {
+                    statusid = false;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/Roles/UpdateUserRole',
+                    data: JSON.stringify({ roleid: roleid, userid: userid,statusid:statusid }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == "success") {
+                            var message = 'successfully updated user role';
+                            $('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>')
+                        }
+                        else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    }

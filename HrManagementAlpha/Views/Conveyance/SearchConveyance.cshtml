@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewBag.Title = "SearchConveyance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent{
+    <style>
+        .btn-xs {
+            padding: 2px 5px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
+
+        #imgPreviewWithStyles {
+            background: #222;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            padding: 15px;
+            z-index: 999;
+            border: none;
+        }
+
+            /* Text below image */
+            #imgPreviewWithStyles span {
+                color: white;
+                text-align: center;
+                display: block;
+                padding: 10px 0 3px 0;
+            }
+
+        .icons {
+            float: right;
+            margin-right: 8px;
+        }
+
+        nav.download {
+            background-color: #E0EAF1;
+            height: 40px;
+            width: 100%;
+        }
+
+            nav.download ul {
+                list-style: none;
+                margin: 0;
+            }
+
+            nav.download li {
+                float: left;
+                width: auto;
+                line-height: 40px;
+                vertical-align: middle;
+                text-align: center;
+                margin: 0;
+            }
+
+        nav li a {
+            width: 100px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+
+        .control-group {
+            border: 0px;
+        }
+
+        .ui-datepicker-append {
+            display: none;
+        }
+    </style>
+}
+    
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="block-flat">
+            <div class="header"><h3>Search Conveyance</h3></div>
+            <div class="content">
+                <form id="form-search-conveyance" action="/Conveyance/SearchConveyancePost" data-parsley-validate="" novalidate="">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label for="txtJobNo" class="col-sm-4 control-label">Job No</label>
+                                <div class="col-sm-7">
+                                    <input id="txtJobNo" name="txtJobNo" type="text" placeholder="JOb No" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label for="txtCostCentre" class="col-sm-4 control-label">Cost Centre</label>
+                                <div class="col-sm-7">
+                                    <input id="txtCostCentre" name="txtCostCentre" type="text" placeholder="Cost Centre" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label for="txtNameOfClient" class="col-sm-4 control-label">Name Of Client</label>
+                                <div class="col-sm-7">
+                                    <input id="txtNameOfClient" name="txtNameOfClient" type="text" placeholder="Name Of Client" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label for="txtLocation" class="col-sm-4 control-label">Location</label>
+                                <div class="col-sm-7">
+                                    <input id="txtLocation" name="txtLocation" type="text" placeholder="From/To Location" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label for="fromDate" class="col-sm-4 control-label">Submit From</label>
+                                <div class="col-sm-7">
+                                    <input id="fromDate" name="fromDate" type="text" placeholder="DD-MM-YYYY" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label for="toDate" class="col-sm-3 control-label">Submit To</label>
+                                <div class="col-sm-7">
+                                    <input id="toDate" name="toDate" type="text" placeholder="DD-MM-YYYY" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label for="conveyanceStatusid" class="col-sm-4 control-label">Conveyance Status</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control  conveyanceStatusid" id="conveyanceStatusid" style="width: 100%;" name="conveyanceStatusid">
+                                        <option></option>
+                                        @foreach (var convey in ViewBag.ConveyanceStatus)
+                                        {
+                                            <option value="@convey.ID">@convey.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                       
+                    </div>
+                    <div class="row text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="search-result-class" style="display:none;">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <span id="search-result-count">Conveyance Search Result</span>
+                </h4>
+
+
+            </div>
+            <div class="panel-body noPad">
+                <div id="downloadorderDetail"></div>
+                <table id="searchResult" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Job No</th>
+                            <th>Cost Centre</th>
+                            <th>Name of Client</th>
+                            <th>Submited By</th>
+                            <th>No Of Conveyance Item</th>
+                            <th>Total Fare</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        // document ready function
+        $(document).ready(function () {
+
+            //form validation
+            var form = $('#form-search-conveyance');
+            form.validate({
+                submitHandler: function () {
+                    SubmitEmployeeSearchForm(form);
+                },
+                ignore: null,
+                rules: {
+
+                },
+                messages: {
+
+                }
+
+            });
+
+
+            //Employee Form Submit Handler
+            function SubmitEmployeeSearchForm(MainForm) {
+                var SubmitURL = MainForm.attr('action');
+                var FormData = MainForm.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: SubmitURL,
+                    async: true,
+                    //If datatype is of 'FormCollection', following 3 lines are not needed-
+                    //====================================================
+                    //contentType: "application/json; charset=utf-8",
+                    //data: "{'agentdata':'"+ agentdata +"'}",
+                    //dataType: 'json',
+                    //====================================================
+                    data: FormData,
+                    beforeSend: function () {
+                        $(MainForm).find('.btn').attr('disabled', 'disabled');
+                        $(MainForm).find('#btn-submit-mainform').html('Working...');
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            $('tbody').empty();
+                            var resultCount = result.data.length;
+                            $.each(result.data, function () {
+                                $('tbody').append('<tr><td>' + this.JobNo + '</td><td>' + this.CostCentre + '</td><td style="text-align:left;" class="person-name-td">' + this.NameOfClient + '</td><td>' + this.SubmitedBy + '</td><td>' + this.TotalRow + '</td><td>' + this.Total + '</td><td><div class="btn-group"><a target="_blank" href="/Conveyance/editConveyanceDetails?id=' + this.Id + '" class="btn btn-info btn-xs">Edit</a><a target="_blank" href="/Conveyance/viewConveyanceDetails?id=' + this.ConveyanceId + '" class="btn btn-default btn-xs">Details</a></div></td></tr>');
+                            });
+                            $('#downloadorderDetail').empty();
+                            $('#downloadorderDetail').append('<nav class="download"><ul><li style="font-size: 18px;font-weight:600;margin-left:10px;">' + resultCount + ' Records Found</li> <li style="float:right;margin-right:10px;"><a id="btnExport" href="ExportEmployeeList?name=' + $('#txtName').val() + '" class="hovertip" title="Export To Excel"><i class="fa fa-download"></i></a></li></ul></nav>');
+                            $('#search-result-class').show();
+                            window.location.href = '#search-result-class';
+
+                        }
+                        else {
+                            $('table').hide();
+                            $('#downloadorderDetail').hide();
+                            $('#search-result-count').html('not found.');
+                        }
+                        $(MainForm).find('.btn').removeAttr("disabled");
+                        $(MainForm).find('#btn-submit-mainform').html('Search');
+
+                    },
+                    error: function (request, status, error) {
+                        alert("Failed to search. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                        //alert("Failed to save. Error Details -  Request: " + request + ", Status: " + status + ", Error: " + error);
+                    },
+                    complete: function () {
+
+                    }
+                });
+                return false;
+            }
+        });
+</script>
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
